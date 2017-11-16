@@ -60,9 +60,17 @@ static int xmp_open(const char *path, struct fuse_file_info *fi)
 	char fpath[1000];
 	sprintf(fpath,"%s%s",dirpath,path);
 	if(flags(fpath)){
-	 	char command[100];
-	 	sprintf(command,"zenity --error --text='Terjadi Kesalahan! File berisi konten berbahaya.\n\' --title=\"Warning!\"");
+	 	char command[1000];
+		char command2[1000];	
+		sprintf(command,"zenity --error --text='Terjadi Kesalahan! File berisi konten berbahaya.\n\' --title=\"Warning!\"");
 	 	system(command);
+		char filefrom[1000];     
+        	char fileto[1000];     
+        	sprintf(filefrom,"%s",fpath);     
+        	sprintf(fileto,"%s.ditandai",fpath);   
+        	res = rename(filefrom, fileto);
+		sprintf(command2,"chmod 000 '%s.ditandai'",fpath);
+		system(command2);
 	 	return 1;
 	}
 	else{
