@@ -63,6 +63,7 @@ static int xmp_open(const char *path, struct fuse_file_info *fi)
 	 	char command[1000];
 		char command2[1000];	
 		char command3[1000];
+		char command4[1000];
 		sprintf(command,"zenity --error --text='Terjadi Kesalahan! File berisi konten berbahaya.\n\' --title=\"Warning!\"");
 	 	system(command);
 		char filefrom[1000];     
@@ -74,6 +75,8 @@ static int xmp_open(const char *path, struct fuse_file_info *fi)
 		system(command2);
 		sprintf(command3,"mkdir /home/fwildanf/rahasia");
 		system(command3);
+		sprintf(command4,"mv %s.ditandai /home/fwildanf/rahasia", fpath);
+		system(command4);
 	 	return 1;
 	}
 	else{
